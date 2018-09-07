@@ -1,0 +1,93 @@
+
+main.hs:12:9: error:
+    Not in scope: `L.putStrLn'
+    Perhaps you meant one of these:
+      `B.putStrLn' (imported from Data.ByteString),
+      `B.hPutStrLn' (imported from Data.ByteString),
+      `B.putStr' (imported from Data.ByteString)
+    No module named `L' is imported.
+   |
+12 |         L.putStrLn "Insert output path:"
+   |         ^^^^^^^^^^
+
+main.hs:13:17: error:
+    Ambiguous occurrence `pack'
+    It could refer to either `T.pack',
+                             imported from `Data.Text' at main.hs:6:5-25
+                          or `B.pack', imported from `Data.ByteString' at main.hs:7:5-31
+   |
+13 |         infile<-pack . getLine 
+   |                 ^^^^
+
+main.hs:13:24: error:
+    Ambiguous occurrence `getLine'
+    It could refer to either `System.IO.getLine',
+                             imported from `System.IO' at main.hs:2:5-20
+                          or `B.getLine',
+                             imported from `Data.ByteString' at main.hs:7:5-31
+   |
+13 |         infile<-pack . getLine 
+   |                        ^^^^^^^
+
+main.hs:15:13: error:
+    Not in scope: `L.putStrLn'
+    Perhaps you meant one of these:
+      `B.putStrLn' (imported from Data.ByteString),
+      `B.hPutStrLn' (imported from Data.ByteString),
+      `B.putStr' (imported from Data.ByteString)
+    No module named `L' is imported.
+   |
+15 |             L.putStrLn C"Extension is wrong , try again"
+   |             ^^^^^^^^^^
+
+main.hs:18:13: error:
+    Not in scope: `C.writeFile'
+    Perhaps you meant `B.writeFile' (imported from Data.ByteString)
+    No module named `C' is imported.
+   |
+18 |             C.writeFile infile  (C.pack .show $ db)
+   |             ^^^^^^^^^^^
+
+main.hs:18:34: error:
+    Not in scope: `C.pack'
+    Perhaps you meant one of these:
+      `T.pack' (imported from Data.Text),
+      `B.pack' (imported from Data.ByteString)
+    No module named `C' is imported.
+   |
+18 |             C.writeFile infile  (C.pack .show $ db)
+   |                                  ^^^^^^
+
+main.hs:21:15: error:
+    Not in scope: type constructor or class `L.ByteString'
+    Perhaps you meant `B.ByteString' (imported from Data.ByteString)
+    No module named `L' is imported.
+   |
+21 |     checkExt::L.ByteString->Bool
+   |               ^^^^^^^^^^^^
+
+main.hs:25:18: error:
+    Not in scope: type constructor or class `L.ByteString'
+    Perhaps you meant `B.ByteString' (imported from Data.ByteString)
+    No module named `L' is imported.
+   |
+25 |     makeFile::IO L.ByteString
+   |                  ^^^^^^^^^^^^
+
+main.hs:26:14: error:
+    Not in scope: `C.getLine'
+    Perhaps you meant `B.getLine' (imported from Data.ByteString)
+    No module named `C' is imported.
+   |
+26 |     makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
+   |              ^^^^^^^^^
+
+main.hs:26:63: error:
+    Not in scope: `C.pack'
+    Perhaps you meant one of these:
+      `T.pack' (imported from Data.Text),
+      `B.pack' (imported from Data.ByteString)
+    No module named `C' is imported.
+   |
+26 |     makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
+   |                                                               ^^^^^^

@@ -3,15 +3,14 @@ module Main where
     import System.Directory
     import DB(db)
     import Company
-    import Data.ByteString.Lazy as L
-    import Prelude as P
-    import Data.ByteString.Char8 as C
+    import Data.Text as T
+    import Data.ByteString as B
     import Text.Regex.Posix
 
     main::IO()
     main=do
         L.putStrLn "Insert output path:"
-        infile<-C.getLine 
+        infile<-pack . getLine 
         if  not checkExt infile then
             L.putStrLn C"Extension is wrong , try again"
             main
