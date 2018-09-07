@@ -1,0 +1,15 @@
+to bring module in scope for prelude:
+
+:module +IO
+
+
+to clear terminal 
+
+:! clear
+
+for debugging
+
+:break [line]
+:list   --
+:type  
+:force [variable]  (get the value)
