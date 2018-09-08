@@ -4,26 +4,26 @@ module Main where
     import DB(db)
     import Company
     import Data.Text as T
-    import Data.ByteString as B
+    import Data.Text.IO as I
     import Text.Regex.Posix
 
     main::IO()
     main=do
-        L.putStrLn "Insert output path:"
-        infile<-pack . getLine 
+        I.putStrLn  (T.pack  "Insert output path:")
+        infile<-I.getLine>>=T.pack 
         if  not checkExt infile then
-            L.putStrLn C"Extension is wrong , try again"
+            I.putStrLn "Extension is wrong , try again"
             main
         else
-            C.writeFile infile  (C.pack .show $ db)
+            I.writeFile infile  (T.pack .show $ db)
             
     
-    checkExt::L.ByteString->Bool
+    checkExt::Text->Bool
     checkExt str= let extensions=".(txt|hs|cs)" in
         str =~ extensions::Bool
 
-    makeFile::IO L.ByteString
-    makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
+    makeFile::IO Text
+    makeFile=I.getLine>>=if checkExt then return  else error (T.pack "could not be done")
 
                   
                   

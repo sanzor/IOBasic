@@ -1,136 +1,101 @@
 
-Main.hs:13:20: error:
-    * Couldn't match expected type `L.ByteString'
-                  with actual type `[Char]'
-    * In the first argument of `L.putStrLn', namely
-        `"Insert output path:"'
-      In a stmt of a 'do' block: L.putStrLn "Insert output path:"
+main.hs:13:29: error:
+    * Couldn't match type `Text' with `IO [Char]'
+      Expected type: Text -> IO [Char]
+        Actual type: String -> Text
+    * In the second argument of `(>>=)', namely `pack'
+      In a stmt of a 'do' block: infile <- I.getLine >>= pack
       In the expression:
-        do L.putStrLn "Insert output path:"
-           infile <- C.getLine
+        do I.putStrLn (pack "Insert output path:")
+           infile <- I.getLine >>= pack
            if not checkExt infile then
-               L.putStrLn "Extension is wrong , try again" main
+               I.putStrLn "Extension is wrong , try again" main
            else
-               C.writeFile infile (C.pack . show $ db)
+               I.writeFile infile (pack . show $ db)
    |
-13 |         L.putStrLn "Insert output path:"
-   |                    ^^^^^^^^^^^^^^^^^^^^^
+13 |         infile<-I.getLine>>=T.pack 
+   |                             ^^^^^^
 
-Main.hs:15:13: error:
-    * Couldn't match expected type `C.ByteString -> Bool'
+main.hs:14:13: error:
+    * Couldn't match expected type `[Char] -> Bool'
                   with actual type `Bool'
     * The function `not' is applied to two arguments,
       but its type `Bool -> Bool' has only one
       In the expression: not checkExt infile
       In a stmt of a 'do' block:
         if not checkExt infile then
-            L.putStrLn "Extension is wrong , try again" main
+            I.putStrLn "Extension is wrong , try again" main
         else
-            C.writeFile infile (C.pack . show $ db)
+            I.writeFile infile (pack . show $ db)
    |
-15 |         if  not checkExt infile then
+14 |         if  not checkExt infile then
    |             ^^^^^^^^^^^^^^^^^^^
 
-Main.hs:15:17: error:
+main.hs:14:17: error:
     * Couldn't match expected type `Bool'
-                  with actual type `L.ByteString -> Bool'
+                  with actual type `Text -> Bool'
     * Probable cause: `checkExt' is applied to too few arguments
       In the first argument of `not', namely `checkExt'
       In the expression: not checkExt infile
       In a stmt of a 'do' block:
         if not checkExt infile then
-            L.putStrLn "Extension is wrong , try again" main
+            I.putStrLn "Extension is wrong , try again" main
         else
-            C.writeFile infile (C.pack . show $ db)
+            I.writeFile infile (pack . show $ db)
    |
-15 |         if  not checkExt infile then
+14 |         if  not checkExt infile then
    |                 ^^^^^^^^
 
-Main.hs:16:13: error:
+main.hs:15:13: error:
     * Couldn't match expected type `IO () -> IO ()'
                   with actual type `IO ()'
-    * The function `L.putStrLn' is applied to two arguments,
-      but its type `L.ByteString -> IO ()' has only one
-      In the expression: L.putStrLn "Extension is wrong , try again" main
+    * The function `I.putStrLn' is applied to two arguments,
+      but its type `Text -> IO ()' has only one
+      In the expression: I.putStrLn "Extension is wrong , try again" main
       In a stmt of a 'do' block:
         if not checkExt infile then
-            L.putStrLn "Extension is wrong , try again" main
+            I.putStrLn "Extension is wrong , try again" main
         else
-            C.writeFile infile (C.pack . show $ db)
+            I.writeFile infile (pack . show $ db)
    |
-16 |             L.putStrLn "Extension is wrong , try again"
-   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
+15 |             I.putStrLn "Extension is wrong , try again"
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^...
 
-Main.hs:16:24: error:
-    * Couldn't match expected type `L.ByteString'
-                  with actual type `[Char]'
-    * In the first argument of `L.putStrLn', namely
+main.hs:15:24: error:
+    * Couldn't match expected type `Text' with actual type `[Char]'
+    * In the first argument of `I.putStrLn', namely
         `"Extension is wrong , try again"'
-      In the expression: L.putStrLn "Extension is wrong , try again" main
+      In the expression: I.putStrLn "Extension is wrong , try again" main
       In a stmt of a 'do' block:
         if not checkExt infile then
-            L.putStrLn "Extension is wrong , try again" main
+            I.putStrLn "Extension is wrong , try again" main
         else
-            C.writeFile infile (C.pack . show $ db)
+            I.writeFile infile (pack . show $ db)
    |
-16 |             L.putStrLn "Extension is wrong , try again"
+15 |             I.putStrLn "Extension is wrong , try again"
    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Main.hs:19:25: error:
-    * Couldn't match type `C.ByteString' with `[Char]'
-      Expected type: FilePath
-        Actual type: C.ByteString
-    * In the first argument of `C.writeFile', namely `infile'
-      In the expression: C.writeFile infile (C.pack . show $ db)
-      In a stmt of a 'do' block:
-        if not checkExt infile then
-            L.putStrLn "Extension is wrong , try again" main
-        else
-            C.writeFile infile (C.pack . show $ db)
-   |
-19 |             C.writeFile infile  (C.pack .show $ db)
-   |                         ^^^^^^
-
-Main.hs:27:14: error:
-    * Couldn't match type `C.ByteString'
-                     with `L.ByteString'
-      NB: `L.ByteString' is defined in `Data.ByteString.Lazy.Internal'
-          `C.ByteString' is defined in `Data.ByteString.Internal'
-      Expected type: IO L.ByteString
-        Actual type: IO C.ByteString
-    * In the expression:
-        C.getLine
-          >>= if checkExt then return else error (C.pack "could not be done")
-      In an equation for `makeFile':
-          makeFile
-            = C.getLine
-                >>= if checkExt then return else error (C.pack "could not be done")
-   |
-27 |     makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
-   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Main.hs:27:29: error:
+main.hs:26:29: error:
     * Couldn't match expected type `Bool'
-                  with actual type `L.ByteString -> Bool'
+                  with actual type `Text -> Bool'
     * Probable cause: `checkExt' is applied to too few arguments
       In the expression: checkExt
       In the second argument of `(>>=)', namely
-        `if checkExt then return else error (C.pack "could not be done")'
+        `if checkExt then return else error (pack "could not be done")'
       In the expression:
-        C.getLine
-          >>= if checkExt then return else error (C.pack "could not be done")
+        I.getLine
+          >>= if checkExt then return else error (pack "could not be done")
    |
-27 |     makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
+26 |     makeFile=I.getLine>>=if checkExt then return  else error (T.pack "could not be done")
    |                             ^^^^^^^^
 
-Main.hs:27:63: error:
-    * Couldn't match expected type `[Char]'
-                  with actual type `C.ByteString'
+main.hs:26:63: error:
+    * Couldn't match expected type `[Char]' with actual type `Text'
     * In the first argument of `error', namely
-        `(C.pack "could not be done")'
-      In the expression: error (C.pack "could not be done")
+        `(pack "could not be done")'
+      In the expression: error (pack "could not be done")
       In the second argument of `(>>=)', namely
-        `if checkExt then return else error (C.pack "could not be done")'
+        `if checkExt then return else error (pack "could not be done")'
    |
-27 |     makeFile=C.getLine>>=if checkExt then return  else error (C.pack "could not be done")
+26 |     makeFile=I.getLine>>=if checkExt then return  else error (T.pack "could not be done")
    |                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
