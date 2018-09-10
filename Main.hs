@@ -3,29 +3,31 @@ module Main where
     import System.Directory
     import DB(db)
     import Company
-    import Data.Text as T
-    import Data.Text.IO as I
-    import Text.Regex.Posix
+    import qualified Data.Text as T
+    import qualified Data.Text.IO as I
+    import qualified Text.Regex.Posix as P
+    
+
+
 
     main::IO()
     main=do
         I.putStrLn  (T.pack  "Insert output path:")
-        infile<-I.getLine>>=T.pack 
-        if  not checkExt infile then
-            I.putStrLn "Extension is wrong , try again"
-            main
-        else
-            I.writeFile infile  (T.pack .show $ db)
+        fileName<-setFile
+        I.writeFile  fileName  (T.pack . show $ db)
             
-    
-    checkExt::Text->Bool
-    checkExt str= let extensions=".(txt|hs|cs)" in
-        str =~ extensions::Bool
-
-    makeFile::IO Text
-    makeFile=I.getLine>>=if checkExt then return  else error (T.pack "could not be done")
-
-                  
+   
+    setFile::IO String
+    setFile=do
+        let  ext =".(txt|hs|cs)"
+        fileName<-I.getLine
+        if not (T.unpack fileName P.=~ ext::Bool) then
+           do
+           putStrLn "Invalid extension of file"  
+           setFile
+        else 
+            return . T.unpack $ fileName
+            
                   
                   
 
